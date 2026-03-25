@@ -175,22 +175,9 @@ function DrawModal({title, sub, color, onDraw, onSkip, drawn, isSecret, onConfir
     );
 }
 
-// ── ReplaceModal ─────────────────────────────────────────────────────────────
-function ReplaceModal({title, onClose}: { title: string; onClose: () => void }) {
-    return (
-        <div className="overlay">
-            <div className="modal">
-                <div className="modal-title">{title}</div>
-                <p className="replace-hint">Нажмите кнопку «↺ заменить» на нужной карточке</p>
-                <button className="mbtn mbtn-primary" onClick={onClose}>Готово</button>
-            </div>
-        </div>
-    );
-}
-
 // ── RoundSummary ─────────────────────────────────────────────────────────────
-function RoundSummary({t1, t2, diff, onNext, onReset}: {
-    t1: TeamState; t2: TeamState; diff: Difficulty;
+function RoundSummary({t1, t2, onNext, onReset}: {
+    t1: TeamState; t2: TeamState;
     onNext: () => void; onReset: () => void;
 }) {
     return (
@@ -250,9 +237,6 @@ export default function GameScreen() {
     const prepDone = prep1Done && prep2Done;
     const prep1 = useCountdown(prep1Total, prepActive && !prep1Done, () => setPrep1Done(true));
     const prep2 = useCountdown(prep2Total, prepActive && !prep2Done, () => setPrep2Done(true));
-
-    const onPrep1End = useCallback(() => setPrep1Done(true), []);
-    const onPrep2End = useCallback(() => setPrep2Done(true), []);
 
     // answer timers
     const [ans1Active, setAns1Active] = useState(false);
@@ -383,19 +367,10 @@ export default function GameScreen() {
     const skipSec2 = () => confirmSec2(null);
 
     // ── Replace cards ───────────────────────────────────────────────────────────
-    const [showReplaceHint, setShowReplaceHint] = useState(false);
-
-    const needsReplacePhase = t1.effect.canReplaceAnyCard || t2.effect.canReplaceAnyCard ||
-        t1.effect.canReplaceMaterial || t2.effect.canReplaceMaterial ||
-        t1.effect.canDrawNewOpinion || t2.effect.canDrawNewOpinion;
 
     const replaceCard = (team: 1 | 2, field: 'characters' | 'places' | 'opinions') => {
         if (!difficulty) return;
-        const pool = [
-            team === 1 ? t1.card.character : t2.card.character,
-            team === 1 ? t1.card.place : t2.card.place,
-            team === 1 ? t1.card.opinion : t2.card.opinion,
-        ];
+
         const existing = team === 1
             ? [t1.card.character, t1.card.place, t1.card.opinion]
             : [t2.card.character, t2.card.place, t2.card.opinion];
@@ -844,7 +819,7 @@ export default function GameScreen() {
             {/* ── ROUND SUMMARY ── */}
             {phase === 'round_summary' && difficulty && (
                 <div className="gs-main">
-                    <RoundSummary t1={t1} t2={t2} diff={difficulty} onNext={nextRound} onReset={fullReset}/>
+                    <RoundSummary t1={t1} t2={t2} onNext={nextRound} onReset={fullReset}/>
                 </div>
             )}
         </div>
