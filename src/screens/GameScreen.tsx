@@ -77,7 +77,7 @@ function BigTimer({seconds, total, paused, color}: {
     const urgent = seconds <= 15 && seconds > 0;
     return (
         <div className={`big-timer ${urgent ? 'bt-urgent' : ''} ${paused ? 'bt-paused' : ''}`}>
-            <svg viewBox="0 0 160 160" width="160" height="160">
+            <svg viewBox="0 0 160 160" width="260" height="260">
                 <circle cx="80" cy="80" r={r} fill="none" stroke="var(--grey-1)" strokeWidth="8"/>
                 <circle cx="80" cy="80" r={r} fill="none"
                         stroke={urgent ? 'var(--raspberry)' : color}
@@ -89,7 +89,7 @@ function BigTimer({seconds, total, paused, color}: {
                 />
             </svg>
             <div className="bt-text">
-                <span className="bt-digits">{fmtTime(seconds)}</span>
+            <span className="bt-digits">{fmtTime(seconds)}</span>
                 {paused && <span className="bt-paused-label">ПАУЗА</span>}
             </div>
         </div>

@@ -247,7 +247,7 @@
 .spin-slot-track {
     flex: 1;
     min-width: 0;
-    width: 0;        /* ← ключевое, заставляет flex не растягиваться от контента */
+    width: 0; /* ← ключевое, заставляет flex не растягиваться от контента */
     height: 52px;
     background: var(--grey-1);
     border-left: 4px solid var(--yellow);
@@ -577,7 +577,7 @@
 
 .bt-digits {
     font-family: var(--font-mono);
-    font-size: 32px;
+    font-size: 56px;
     font-weight: 600;
     color: var(--black);
     line-height: 1;
@@ -764,14 +764,18 @@
 
 .answer-timer-row {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 32px;
+    gap: 24px;
+    width: 100%;
 }
 
 .answer-btns {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* SUMMARY */
