@@ -303,8 +303,8 @@ export default function GameScreen() {
                 session.current.roundCount = n;
                 return n;
             });
-            setPhase('draw_material_1');
-        }, 2000);
+            setPhase('reveal_cards');
+        }, 3800);
     }, []);
 
     // ── Draw helpers ────────────────────────────────────────────────────────────
@@ -484,15 +484,50 @@ export default function GameScreen() {
 
     // ── Spinning animation ─────────────────────────────────────────────────────
     const [spinTick, setSpinTick] = useState(0);
+    const [charLocked1, setCharLocked1] = useState(false);
+    const [placeLocked1, setPlaceLocked1] = useState(false);
+    const [opLocked1, setOpLocked1] = useState(false);
+    const [charLocked2, setCharLocked2] = useState(false);
+    const [placeLocked2, setPlaceLocked2] = useState(false);
+    const [opLocked2, setOpLocked2] = useState(false);
+
     useEffect(() => {
         if (phase !== 'spinning') return;
-        const id = setInterval(() => setSpinTick(n => n + 1), 120);
-        return () => clearInterval(id);
+
+        setCharLocked1(false);
+        setPlaceLocked1(false);
+        setOpLocked1(false);
+        setCharLocked2(false);
+        setPlaceLocked2(false);
+        setOpLocked2(false);
+
+        const id = setInterval(() => setSpinTick(n => n + 1), 110);
+
+        // Альфа останавливается первой
+        const t1char = setTimeout(() => setCharLocked1(true), 1000);
+        const t1place = setTimeout(() => setPlaceLocked1(true), 1500);
+        const t1op = setTimeout(() => setOpLocked1(true), 2000);
+
+        // Бета останавливается второй
+        const t2char = setTimeout(() => setCharLocked2(true), 2400);
+        const t2place = setTimeout(() => setPlaceLocked2(true), 2900);
+        const t2op = setTimeout(() => setOpLocked2(true), 3400);
+
+        return () => {
+            clearInterval(id);
+            clearTimeout(t1char);
+            clearTimeout(t1place);
+            clearTimeout(t1op);
+            clearTimeout(t2char);
+            clearTimeout(t2place);
+            clearTimeout(t2op);
+        };
     }, [phase]);
 
-    const spinChar = difficulty ? CARD_POOLS[difficulty].characters[spinTick % CARD_POOLS[difficulty].characters.length] : '…';
-    const spinPlace = difficulty ? CARD_POOLS[difficulty].places[spinTick % CARD_POOLS[difficulty].places.length] : '…';
-    const spinOp = difficulty ? CARD_POOLS[difficulty].opinions[spinTick % CARD_POOLS[difficulty].opinions.length] : '…';
+    const pool = difficulty ? CARD_POOLS[difficulty] : null;
+    const spinChar = pool ? pool.characters[spinTick % pool.characters.length] : '…';
+    const spinPlace = pool ? pool.places[spinTick % pool.places.length] : '…';
+    const spinOp = pool ? pool.opinions[spinTick % pool.opinions.length] : '…';
 
     // ── Render ─────────────────────────────────────────────────────────────────
     return (
@@ -535,27 +570,129 @@ export default function GameScreen() {
                 <div className="gs-center">
                     <div className="spin-wrap">
                         <div className="spin-label">Генерируем карточки…</div>
-                        <div className="spin-slots">
-                            <div className="spin-slot">
-                                <div className="spin-slot-label">ПЕРСОНАЖ</div>
-                                <div className="spin-slot-track">
-                                    <span key={spinTick} className="spin-slot-value">{spinChar}</span>
+                        <div className="spin-columns">
+
+                            {/* АЛЬФА */}
+                            <div className="spin-column">
+                                <div className="spin-column-name" style={{color: 'var(--purple)'}}>АЛЬФА</div>
+                                <div className={`spin-slot ${charLocked1 ? 'spin-slot--locked' : ''}`}>
+                                    <div className="spin-slot-label">ПЕРСОНАЖ</div>
+                                    <div className="spin-slot-track">
+                                        {charLocked1
+                                            ? <span
+                                                className="spin-slot-value spin-slot-value--final">{t1.card.character}</span>
+                                            : <span key={spinTick} className="spin-slot-value">{spinChar}</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div className={`spin-slot ${placeLocked1 ? 'spin-slot--locked' : ''}`}>
+                                    <div className="spin-slot-label">МЕСТО</div>
+                                    <div className="spin-slot-track">
+                                        {placeLocked1
+                                            ? <span
+                                                className="spin-slot-value spin-slot-value--final">{t1.card.place}</span>
+                                            : <span key={spinTick + 10} className="spin-slot-value">{spinPlace}</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div className={`spin-slot ${opLocked1 ? 'spin-slot--locked' : ''}`}>
+                                    <div className="spin-slot-label">МНЕНИЕ</div>
+                                    <div className="spin-slot-track spin-slot-track--tall">
+                                        {opLocked1
+                                            ? <span
+                                                className="spin-slot-value spin-slot-value--final spin-slot-value--sm">{t1.card.opinion}</span>
+                                            : <span key={spinTick + 20}
+                                                    className="spin-slot-value spin-slot-value--sm">{spinOp}</span>
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                            <div className="spin-slot">
-                                <div className="spin-slot-label">МЕСТО</div>
-                                <div className="spin-slot-track">
-                                    <span key={spinTick + 100} className="spin-slot-value">{spinPlace}</span>
+
+                            <div className="spin-divider"/>
+
+                            {/* БЕТА */}
+                            <div className="spin-column">
+                                <div className="spin-column-name" style={{color: 'var(--raspberry)'}}>БЕТА</div>
+                                <div className={`spin-slot ${charLocked2 ? 'spin-slot--locked' : ''}`}>
+                                    <div className="spin-slot-label">ПЕРСОНАЖ</div>
+                                    <div className="spin-slot-track">
+                                        {charLocked2
+                                            ? <span
+                                                className="spin-slot-value spin-slot-value--final">{t2.card.character}</span>
+                                            : <span key={spinTick + 30} className="spin-slot-value">{spinChar}</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div className={`spin-slot ${placeLocked2 ? 'spin-slot--locked' : ''}`}>
+                                    <div className="spin-slot-label">МЕСТО</div>
+                                    <div className="spin-slot-track">
+                                        {placeLocked2
+                                            ? <span
+                                                className="spin-slot-value spin-slot-value--final">{t2.card.place}</span>
+                                            : <span key={spinTick + 40} className="spin-slot-value">{spinPlace}</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div className={`spin-slot ${opLocked2 ? 'spin-slot--locked' : ''}`}>
+                                    <div className="spin-slot-label">МНЕНИЕ</div>
+                                    <div className="spin-slot-track spin-slot-track--tall">
+                                        {opLocked2
+                                            ? <span
+                                                className="spin-slot-value spin-slot-value--final spin-slot-value--sm">{t2.card.opinion}</span>
+                                            : <span key={spinTick + 50}
+                                                    className="spin-slot-value spin-slot-value--sm">{spinOp}</span>
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                            <div className="spin-slot">
-                                <div className="spin-slot-label">МНЕНИЕ</div>
-                                <div className="spin-slot-track spin-slot-track--wide">
-                                    <span key={spinTick + 200}
-                                          className="spin-slot-value spin-slot-value--sm">{spinOp}</span>
+
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ── REVEAL CARDS ── */}
+            {phase === 'reveal_cards' && (
+                <div className="gs-main reveal-main">
+                    <div className="reveal-header">
+                        <div className="reveal-title">Ваши карточки</div>
+                        <div className="reveal-sub">Изучите и решите — нужен ли дополнительный материал</div>
+                    </div>
+                    <div className="reveal-teams">
+                        <div className="reveal-team" style={{animationDelay: '0ms'}}>
+                            <div className="reveal-team-name" style={{color: 'var(--purple)'}}>АЛЬФА</div>
+                            <div className="reveal-chips">
+                                <div style={{animationDelay: '100ms'}} className="reveal-chip-wrap">
+                                    <CardChip label="Персонаж" value={t1.card.character} color="var(--purple)"/>
+                                </div>
+                                <div style={{animationDelay: '250ms'}} className="reveal-chip-wrap">
+                                    <CardChip label="Место" value={t1.card.place} color="var(--purple)"/>
+                                </div>
+                                <div style={{animationDelay: '400ms'}} className="reveal-chip-wrap">
+                                    <CardChip label="Мнение" value={t1.card.opinion} color="var(--purple)"/>
                                 </div>
                             </div>
                         </div>
+                        <div className="reveal-team" style={{animationDelay: '500ms'}}>
+                            <div className="reveal-team-name" style={{color: 'var(--raspberry)'}}>БЕТА</div>
+                            <div className="reveal-chips">
+                                <div style={{animationDelay: '600ms'}} className="reveal-chip-wrap">
+                                    <CardChip label="Персонаж" value={t2.card.character} color="var(--raspberry)"/>
+                                </div>
+                                <div style={{animationDelay: '750ms'}} className="reveal-chip-wrap">
+                                    <CardChip label="Место" value={t2.card.place} color="var(--raspberry)"/>
+                                </div>
+                                <div style={{animationDelay: '900ms'}} className="reveal-chip-wrap">
+                                    <CardChip label="Мнение" value={t2.card.opinion} color="var(--raspberry)"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="reveal-footer"
+                         style={{animationDelay: '1000ms', animation: 'fadeIn .4s ease both'}}>
+                        <button className="gs-btn gs-btn-black" onClick={() => setPhase('draw_material_1')}>
+                            Тянуть дополнительный материал →
+                        </button>
                     </div>
                 </div>
             )}
