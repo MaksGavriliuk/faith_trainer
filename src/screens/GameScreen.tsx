@@ -414,7 +414,7 @@ export default function GameScreen() {
     const startAnswer1 = () => {
         setPhase('answer_1');
         // setAns1Active(true);
-        // ans1.reset();
+        ans1.reset();
     };
 
     const startAnswer2 = () => {
@@ -442,7 +442,7 @@ export default function GameScreen() {
     const handleTeam1Done = () => {
         setAns1Active(false);
         // setAns2Active(true);    // ← добавить
-        // ans2.reset();            // ← добавить
+        ans2.reset();            // ← добавить
         setPhase('answer_2');
     };
     const handleTeam2Done = () => {
