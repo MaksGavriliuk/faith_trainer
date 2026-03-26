@@ -413,8 +413,8 @@ export default function GameScreen() {
 
     const startAnswer1 = () => {
         setPhase('answer_1');
-        setAns1Active(true);
-        ans1.reset();
+        // setAns1Active(true);
+        // ans1.reset();
     };
 
     const startAnswer2 = () => {
@@ -441,8 +441,8 @@ export default function GameScreen() {
 
     const handleTeam1Done = () => {
         setAns1Active(false);
-        setAns2Active(true);    // ← добавить
-        ans2.reset();            // ← добавить
+        // setAns2Active(true);    // ← добавить
+        // ans2.reset();            // ← добавить
         setPhase('answer_2');
     };
     const handleTeam2Done = () => {
@@ -852,6 +852,11 @@ export default function GameScreen() {
                             <BigTimer seconds={ans1.left} total={t1.answerSeconds} paused={t1.answerPaused}
                                       color="var(--purple)"/>
                             <div className="answer-btns">
+                                {!ans1Active && !t1.answerDone && (
+                                    <button className="gs-btn gs-btn-black" onClick={() => { setAns1Active(true); ans1.reset(); }}>
+                                        Запустить таймер
+                                    </button>
+                                )}
                                 {!t1.answerDone && !t1.answerPaused && ans1Active && (
                                     <button className="gs-btn gs-btn-outline" onClick={() => pauseAnswer(1)}>⏸
                                         Пауза</button>
@@ -913,6 +918,11 @@ export default function GameScreen() {
                             <BigTimer seconds={ans2.left} total={t2.answerSeconds} paused={t2.answerPaused}
                                       color="var(--raspberry)"/>
                             <div className="answer-btns">
+                                {!ans2Active && !t2.answerDone && (
+                                    <button className="gs-btn gs-btn-black" onClick={() => { setAns2Active(true); ans2.reset(); }}>
+                                        Запустить таймер
+                                    </button>
+                                )}
                                 {!t2.answerDone && !t2.answerPaused && ans2Active && (
                                     <button className="gs-btn gs-btn-outline" onClick={() => pauseAnswer(2)}>⏸
                                         Пауза</button>
