@@ -44,7 +44,7 @@
 
 .start-label {
     font-family: var(--font-mono);
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.3em;
     color: var(--grey-3);
     text-transform: uppercase;
@@ -64,18 +64,18 @@
 }
 
 .start-desc {
-    font-size: 16px;
+    font-size: 20px;
     color: var(--grey-4);
     line-height: 1.6;
     max-width: 380px;
 }
 
 .start-btn {
-    padding: 18px 48px;
+    padding: 22px 56px;
     background: var(--black);
     color: var(--white);
     font-family: var(--font-heading);
-    font-size: 18px;
+    font-size: 22px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     transition: all 0.2s;
@@ -94,7 +94,7 @@
 
 .start-meta {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--grey-3);
     letter-spacing: 0.15em;
 }

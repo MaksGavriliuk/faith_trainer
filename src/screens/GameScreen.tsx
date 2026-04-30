@@ -419,7 +419,7 @@ export default function GameScreen() {
 
     const startAnswer2 = () => {
         setPhase('answer_2');
-        setAns2Active(true);
+        // setAns2Active(true);
         ans2.reset();
     };
 

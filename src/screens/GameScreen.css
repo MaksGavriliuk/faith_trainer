@@ -19,7 +19,7 @@
 
 .gs-back {
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: .2em;
     color: var(--grey-3);
     text-transform: uppercase;
@@ -39,7 +39,7 @@
 
 .gs-logo {
     font-family: var(--font-display);
-    font-size: 28px;
+    font-size: 36px;
     letter-spacing: .06em;
     color: var(--black);
 }
@@ -69,7 +69,7 @@
 
 .gs-round-num {
     font-family: var(--font-display);
-    font-size: 40px;
+    font-size: 52px;
     line-height: 1;
     color: var(--black);
 }
@@ -111,7 +111,7 @@
 
 .pick-title {
     font-family: var(--font-display);
-    font-size: clamp(48px, 8vw, 96px);
+    font-size: clamp(64px, 10vw, 120px);;
     line-height: .9;
     color: var(--black);
 }
@@ -127,7 +127,7 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    padding: 28px 36px;
+    padding: 36px 44px;
     background: var(--grey-1);
     border: 2px solid transparent;
     transition: all .25s;
@@ -160,13 +160,13 @@
 
 .pick-card-label {
     font-family: var(--font-heading);
-    font-size: 24px;
+    font-size: 30px;
     color: var(--black);
 }
 
 .pick-card-sub {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12px;
     color: var(--grey-3);
     letter-spacing: .15em;
 }
@@ -477,7 +477,7 @@
 
 /* CARD CHIP */
 .card-chip {
-    padding: 14px 18px;
+    padding: 18px 22px;
     background: var(--grey-1);
     border-left: 4px solid;
     display: flex;
@@ -487,7 +487,7 @@
 
 .chip-label {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: .2em;
     text-transform: uppercase;
     opacity: .7;
@@ -495,7 +495,7 @@
 
 .chip-value {
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     color: var(--black);
     line-height: 1.4;
@@ -539,19 +539,19 @@
 
 .sb-type {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: .25em;
     color: var(--grey-3);
 }
 
 .sb-name {
     font-family: var(--font-heading);
-    font-size: 18px;
+    font-size: 22px;
     color: var(--black);
 }
 
 .sb-desc {
-    font-size: 13px;
+    font-size: 16px;
     color: var(--grey-4);
     line-height: 1.5;
 }
@@ -577,7 +577,7 @@
 
 .bt-digits {
     font-family: var(--font-mono);
-    font-size: 56px;
+    font-size: 72px;
     font-weight: 600;
     color: var(--black);
     line-height: 1;
@@ -657,7 +657,7 @@
 
 .replace-team-name {
     font-family: var(--font-display);
-    font-size: 36px;
+    font-size: 44px;
     margin-bottom: 4px;
 }
 
@@ -682,7 +682,7 @@
 
 .prep-title {
     font-family: var(--font-display);
-    font-size: 56px;
+    font-size: 68px;
     color: var(--black);
 }
 
@@ -726,7 +726,7 @@
 
 .prep-team-name {
     font-family: var(--font-display);
-    font-size: 32px;
+    font-size: 40px;
 }
 
 .prep-chips {
@@ -746,7 +746,7 @@
 
 .answer-team-label {
     font-family: var(--font-display);
-    font-size: 48px;
+    font-size: 64px;
     line-height: 1;
 }
 
@@ -788,7 +788,7 @@
 
 .summary-title {
     font-family: var(--font-display);
-    font-size: 60px;
+    font-size: 72px;
     color: var(--black);
 }
 
@@ -809,7 +809,7 @@
 
 .sum-team-name {
     font-family: var(--font-display);
-    font-size: 32px;
+    font-size: 40px;
     margin-bottom: 4px;
 }
 
@@ -821,14 +821,14 @@
 
 .sum-row span {
     font-family: var(--font-mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: .15em;
     color: var(--grey-3);
     text-transform: uppercase;
 }
 
 .sum-row b {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--black);
     line-height: 1.4;
@@ -842,9 +842,9 @@
 
 /* BUTTONS */
 .gs-btn {
-    padding: 16px 36px;
+    padding: 20px 44px;
     font-family: var(--font-heading);
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: .06em;
     text-transform: uppercase;
     cursor: pointer;
@@ -896,8 +896,8 @@
 }
 
 .gs-btn-ghost-sm {
-    padding: 8px 20px;
-    font-size: 12px;
+    padding: 10px 24px;
+    font-size: 13px;
     background: none;
     border: 1px solid var(--grey-2);
     color: var(--grey-3);
